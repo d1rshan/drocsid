@@ -1,16 +1,44 @@
-import { NavigationSidebar } from "@/components/navigation/navigation-sidebar";
+import { redirect } from "next/navigation";
 
-export default function MainLayout({
+import { currentProfile } from "@/lib/current-profile";
+import db from "@/lib/db";
+import { ServerSidebar } from "@/components/server/server-sidebar";
+
+export default async function ServerIdLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ serverId: string }>;
 }) {
+  const { serverId } = await params;
+  const profile = await currentProfile();
+
+  if (!profile) {
+    return redirect("/sign-in");
+  }
+
+  const server = await db.server.findUnique({
+    where: {
+      id: serverId,
+      members: {
+        some: {
+          profileId: profile.id,
+        },
+      },
+    },
+  });
+
+  if (!server) {
+    return redirect("/");
+  }
+
   return (
     <div className="h-full">
-      <div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
-        <NavigationSidebar />
+      <div className="hidden md:flex h-full w-60 z-20 flex-col inset-y-0 fixed">
+        <ServerSidebar serverId={serverId} />
       </div>
-      <main className="md:pl-[72px] h-full">{children}</main>
+      <main className="h-full md:pl-60">{children}</main>
     </div>
   );
 }
