@@ -54,6 +54,26 @@ export const MembersModal = () => {
   const isModalOpen = isOpen && type === "members";
   const { server } = data as { server: ServerWithMembersWithProfiles };
 
+  const onKick = async (memberId: string) => {
+    try {
+      setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server?.id,
+        },
+      });
+
+      const res = await axios.delete(url);
+      onOpen("members", { server: res.data });
+      router.refresh();
+    } catch (error) {
+      console.log("Error in kicking member from server!", error);
+    } finally {
+      setLoadingId("");
+    }
+  };
+
   const onRoleChange = async (memberId: string, role: MemberRole) => {
     try {
       setLoadingId(memberId);
@@ -134,7 +154,10 @@ export const MembersModal = () => {
                           </DropdownMenuPortal>
                         </DropdownMenuSub>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="!text-rose-500">
+                        <DropdownMenuItem
+                          onClick={() => onKick(member.id)}
+                          className="!text-rose-500"
+                        >
                           <Gavel className="h-4 w-4 mr-2 text-rose-500" />
                           Kick
                         </DropdownMenuItem>
