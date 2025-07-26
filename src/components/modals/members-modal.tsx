@@ -59,7 +59,7 @@ export const MembersModal = () => {
       setLoadingId(memberId);
       const url = qs.stringifyUrl({
         url: `/api/members/${memberId}`,
-        query: { serverId: server?.id, memberId },
+        query: { serverId: server?.id },
       });
 
       const res = await axios.patch(url, { role });
@@ -148,7 +148,6 @@ export const MembersModal = () => {
             </div>
           ))}
         </ScrollArea>
-        <div className="p-6">Manage Members</div>
       </DialogContent>
     </Dialog>
   );
