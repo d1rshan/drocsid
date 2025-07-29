@@ -3,7 +3,7 @@
 import { ChannelType, MemberRole } from "@/generated/prisma";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { ActionTooltip } from "../action-tooltip";
-import { Plus } from "lucide-react";
+import { Plus, Settings } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 
 interface ServerSectionProps {
@@ -37,12 +37,12 @@ export const ServerSection = ({
         </ActionTooltip>
       )}
       {role === MemberRole.ADMIN && sectionType === "members" && (
-        <ActionTooltip label="Create Channel" side="top">
+        <ActionTooltip label="Manage Members" side="top">
           <button
             onClick={() => onOpen("members", { server })}
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
           >
-            <Plus className="h-4 w-4" />
+            <Settings className="h-4 w-4" />
           </button>
         </ActionTooltip>
       )}
