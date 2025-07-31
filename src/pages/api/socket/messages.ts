@@ -24,8 +24,8 @@ export default async function handler(
     if (!channelId)
       return res.status(400).json({ error: "Channel ID Missing" });
 
-    if (!content)
-      return res.status(400).json({ error: "Content Missing" });
+    // if (!content)
+    //   return res.status(400).json({ error: "Content Missing" });
 
     const server = await db.server.findFirst({
       where: {
@@ -63,7 +63,7 @@ export default async function handler(
 
     const message = await db.message.create({
       data: {
-        content,
+        content: content || "",
         fileUrl,
         channelId: channelId as string,
         memberId: member.id
