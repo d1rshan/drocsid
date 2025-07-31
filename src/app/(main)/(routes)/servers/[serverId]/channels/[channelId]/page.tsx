@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import db from "@/lib/db";
 import { currentProfile } from "@/lib/current-profile";
-import { ChatHeader } from "@/components/chat/chat-header/page";
+import { ChatHeader } from "@/components/chat/chat-header";
 
 interface ChannelIdPageProps {
   params: Promise<{
