@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { FormControl, Form, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal-store";
-// import { EmojiPicker } from "@/components/emoji-picker";
+import { EmojiPicker } from "@/components/emoji-picker";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -78,11 +78,11 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                     {...field}
                   />
                   <div className="absolute top-7 right-8">
-                    {/* <EmojiPicker
+                    <EmojiPicker
                       onChange={(emoji: string) =>
                         field.onChange(`${field.value} ${emoji}`)
                       }
-                    /> */}
+                    />
                     <Smile />
                   </div>
                 </div>
