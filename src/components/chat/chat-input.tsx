@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Smile } from "lucide-react";
+import { Plus } from "lucide-react";
 import axios from "axios";
 import qs from "query-string";
 import { useRouter } from "next/navigation";
@@ -83,7 +83,6 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                         field.onChange(`${field.value} ${emoji}`)
                       }
                     />
-                    <Smile />
                   </div>
                 </div>
               </FormControl>
