@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 type ChatScrollProps = {
-  chatRef: React.RefObject<HTMLDivElement>;
-  bottomRef: React.RefObject<HTMLDivElement>;
+  chatRef: React.RefObject<HTMLDivElement | null>;
+  bottomRef: React.RefObject<HTMLDivElement | null>;
   shouldLoadMore: boolean;
   loadMore: () => void;
   count: number;
@@ -52,7 +52,7 @@ export const useChatScroll = ({
 
     if (shouldAutoScroll()) {
       setTimeout(() => {
-        bottomRef.current?.scrollIntoView({
+        bottomRef?.current?.scrollIntoView({
           behavior: "smooth"
         });
       }, 100);
