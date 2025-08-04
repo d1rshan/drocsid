@@ -10,19 +10,21 @@ import { ChatInput } from "@/components/chat/chat-input";
 // import { MediaRoom } from "@/components/media-room";
 
 interface MemberIdPageProps {
-  params: {
+  params: Promise<{
     memberId: string;
     serverId: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     video?: boolean;
-  };
+  }>;
 }
 
 export default async function MemberIdPage({
-  params: { memberId, serverId },
-  searchParams: { video },
+  params,
+  searchParams,
 }: MemberIdPageProps) {
+  const { serverId, memberId } = await params;
+  const { video } = await searchParams;
   const profile = await currentProfile();
 
   if (!profile) return redirect("/sign-in");
